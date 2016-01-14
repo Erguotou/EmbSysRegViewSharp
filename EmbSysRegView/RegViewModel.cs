@@ -191,7 +191,7 @@ namespace EmbSysRegView
             Owner = owner;
 
             Name = reg.Attribute("name").Value;
-            Description = reg.Attribute("description").Value;
+            Description = reg.Element("description").Value;
 
             ItemPath = Path.Combine(parent.ItemPath, Name);
             Icon = EmbSysRegView.Properties.Resources.unselected_register;
@@ -354,9 +354,9 @@ namespace EmbSysRegView
 
             foreach (var interp in Element.Descendants("interpretation"))
             {
-                var key = uint.Parse(interp.Attribute("key").Value);
+                var key = Convert.ToUInt32(interp.Attribute("key").Value, 16);
                 var text = interp.Attribute("text").Value.Trim();
-                interpretations.Add(key, text);
+                interpretations[key] = text;
             }
         }
 
